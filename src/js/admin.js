@@ -1,3 +1,3 @@
-let saludos = "hola desde admin";
-
-console.log(saludos);
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
+import '../css/style.css';
