@@ -19,7 +19,22 @@
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ \"./node_modules/bootstrap/dist/js/bootstrap.js\");\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_0__);\n\n\n\n\n//# sourceURL=webpack://popfunk/./src/js/admin.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ \"./node_modules/bootstrap/dist/js/bootstrap.js\");\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _funko_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./funko.js */ \"./src/js/funko.js\");\n\n\n\n //inicializo variables\n\nvar listaFunkos = [];\nleerProducto();\n\nwindow.agregarFunko = function (event) {\n  event.preventDefault();\n  var codigo = document.getElementById('codigo').value;\n  var nombre = document.getElementById('nombre').value;\n  var numSerie = document.getElementById('numSerie').value;\n  var categoria = document.getElementById('categoria').value;\n  var descripcion = document.getElementById('descripcion').value;\n  var imagen = document.getElementById('imagen').value;\n  var precio = document.getElementById('precio').value; //validar crear un if para validar los campos esto esta en la clse de eventos\n\n  var nuevoFunko = new _funko_js__WEBPACK_IMPORTED_MODULE_1__.default(codigo, nombre, numSerie, categoria, descripcion, imagen, precio);\n  listaFunkos.push(nuevoFunko);\n  localStorage.setItem(\"funkoKey\", JSON.stringify(listaFunkos));\n  limpiarFormulario();\n};\n\nfunction limpiarFormulario() {\n  var formulario = document.getElementById('formProducto');\n  formulario.reset();\n}\n\nfunction leerProducto() {\n  if (localStorage.length > 0) {\n    var _listaFunkos = JSON.parse(localStorage.getItem('funkoKey'));\n\n    if (listaFunkos.length == 0) {\n      listaFunkos = _listaFunkos;\n    }\n  }\n}\n\n//# sourceURL=webpack://popfunk/./src/js/admin.js?");
+
+/***/ }),
+
+/***/ "./src/js/funko.js":
+/*!*************************!*\
+  !*** ./src/js/funko.js ***!
+  \*************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => /* binding */ Funko\n/* harmony export */ });\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nvar Funko = function Funko(codigo, nombre, numSerie, categoria, descripcion, imagen, precio) {\n  _classCallCheck(this, Funko);\n\n  this.codigo = codigo;\n  this.nombre = nombre;\n  this.numSerie = numSerie;\n  this.categoria = categoria;\n  this.descripcion = descripcion;\n  this.imagen = imagen;\n  this.precio = precio;\n};\n\n\n\n//# sourceURL=webpack://popfunk/./src/js/funko.js?");
 
 /***/ }),
 

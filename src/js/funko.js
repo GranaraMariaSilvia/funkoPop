@@ -1,5 +1,5 @@
-class Funko {
-    constructor(codigo, nombre, numSerie,categoria,descripcion, imagen, precio){
+export default class Funko {
+         constructor(codigo, nombre, numSerie,categoria,descripcion, imagen, precio){
         this.codigo = codigo;
         this.nombre = nombre;
         this.numSerie = numSerie;
