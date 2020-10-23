@@ -26,6 +26,7 @@ window.agregarFunko = function(event){
     localStorage.setItem("funkoKey", JSON.stringify(listaFunkos));
     
     limpiarFormulario();
+    leerProducto();
     
 }
 
@@ -41,5 +42,42 @@ function leerProducto(){
         if(listaFunkos.length == 0){
             listaFunkos = _listaFunkos;
         }
+        //borrar tabla 
+        borrarTabla();
+        //dibujar tabla
+        dibujarTabla(_listaFunkos);
     }
+}
+
+function dibujarTabla(_listaFunkos){
+    let tablaFunko = document.getElementById('tablaFunko');
+
+    let codHtml = "" ;
+    for(let i in _listaFunkos){
+
+        codHtml =  `<tr>
+        <th scope="row">${_listaFunkos[i].codigo}</th>
+        <td>${_listaFunkos[i].nombre}</td>
+        <td>${_listaFunkos[i].numSerie}</td>
+        <td>${_listaFunkos[i].categoria}</td>
+        <td>${_listaFunkos[i].descripcion}</td>
+        <td>${_listaFunkos[i].imagen}</td>
+        <td>$${_listaFunkos[i].precio}</td>
+        <td>
+          <button class="btn btn-outline-primary btn-sm">Editar</button>
+          <button class="btn btn-outline-danger btn-sm">Eliminar</button>
+        </td>`
+        tablaFunko.innerHTML += codHtml;
+    }
+}
+
+function borrarTabla(){
+    let tablaFunko = document.getElementById('tablaFunko');
+    if(tablaFunko.children.length > 0){
+
+        while(tablaFunko.firstChild){
+            tablaFunko.remuveChild(tablaFunko.firstChild)
+        }
+    }
+
 }
