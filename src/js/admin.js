@@ -94,7 +94,7 @@ window.eliminarProducto = function(botonEliminar){
         
    localStorage.setItem("funkoKey", JSON.stringify(datosFiltrados));
            leerProducto();
-           _listaFunkos = datosFiltrados;
+           listaFunkos = datosFiltrados;
         
         }
     };
