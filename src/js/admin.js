@@ -3,6 +3,8 @@ import "bootstrap";
 import "../css/style.css";
 import Funko from "./funko.js";
 import $ from "jquery";
+import Swal from 'sweetalert2';
+import '@fortawesome/fontawesome-free/js/all.min.js';
 //inicializo variables
 
 let listaFunkos = [];
@@ -38,6 +40,15 @@ window.agregarFunko = function () {
 
   limpiarFormulario();
   leerProducto();
+
+  let ventanaModal = document.getElementById("modalProducto");
+  $(ventanaModal).modal("hide");
+
+  Swal.fire(
+    'Producto Agregado!',
+    'Tu producto se agrego correctamente!',
+    'success'
+  )
 };
 
 // limpio el formulario, con reset y le pongo la funcion bandera que
@@ -87,9 +98,9 @@ function dibujarTabla(_listaFunkos) {
         <td>${_listaFunkos[i].imagen}</td>
         <td>$${_listaFunkos[i].precio}</td>
         <td>
-          <button class="btn btn-outline-primary btn-sm " onclick= "modificarProducto(${_listaFunkos[i].codigo})">Editar</button>
+          <button class="btn btn-outline-primary btn-sm " onclick= "modificarProducto(${_listaFunkos[i].codigo})"><i class="far fa-edit"></i></button>
           <button class="btn btn-outline-danger btn-sm" onclick="eliminarProducto(this)"
-           id="${_listaFunkos[i].codigo}">Eliminar</button>
+           id="${_listaFunkos[i].codigo}"><i class="far fa-trash-alt"></i></button>
         </td>`;
     //a la tabla le pongo los valores y le pongo += para que acumule cada objeto
     tablaFunko.innerHTML += codHtml;
@@ -107,23 +118,59 @@ function borrarTabla() {
     }
   }
 }
+
+
 // para eliminar esta la llamo en el boton eliminar
 window.eliminarProducto = function (botonEliminar) {
   //pregunto si hay algo en el localstorage
   if (localStorage.length > 0) {
     let _listaFunkos = JSON.parse(localStorage.getItem("funkoKey"));
-    //filtro el array y se crea otro array con el resultado del filtro
+
+    Swal.fire({
+      title: 'Estas seguro de querer eliminar este producto?',
+      text: "Si elimina no hay vuelta atras!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#DC143C',
+      cancelButtonColor: '#87CEEB',
+      confirmButtonText: 'Borrar!'
+    }).then((result) => {
+
+
+      if (result.isConfirmed) {
+
+         //filtro el array y se crea otro array con el resultado del filtro
     let datosFiltrados = _listaFunkos.filter(function (producto) {
       return producto.codigo != botonEliminar.id;
     });
-    //guardo el array filtrado en el localstorage
-    localStorage.setItem("funkoKey", JSON.stringify(datosFiltrados));
-    //llamo a la funcion para que pinte la tabla
-    leerProducto();
-    // le asigno al array los valores del array filtrado
-    listaFunkos = datosFiltrados;
+      //guardo el array filtrado en el localstorage
+      localStorage.setItem("funkoKey", JSON.stringify(datosFiltrados));
+      //llamo a la funcion para que pinte la tabla
+      leerProducto();
+      // le asigno al array los valores del array filtrado
+      listaFunkos = datosFiltrados;
+
+        Swal.fire(
+          'Producto Borrado!',
+          'Su producto fue eliminado correctamente.',
+          'success'
+        )
+      }else{
+        Swal.fire(
+          'Cancelado!',
+          'Tu producto esta a salvo.',
+          'success'
+        )
+
+      }
+    })
+    
   }
 };
+
+
+
+
 
 // esta funcion la llamo en el boton editar
 window.modificarProducto = function (codigo) {
@@ -152,8 +199,24 @@ window.agregarModificar = function (event) {
     // quiero agregar un nuevo producto
     agregarFunko();
   } else {
-    //quiero editar un producto
-    guardarProductoModificado();
+    Swal.fire({
+      title: 'Esta seguro de querer modificar el producto?',
+      text: "No sera posible revertir los cambios!",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#DC143C',
+      cancelButtonColor: '#87CEEB',
+      confirmButtonText: 'Modificar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //quiero editar un producto
+        guardarProductoModificado();
+        Swal.fire(
+          'Producto Modificado!',
+          'tu producto fue modificado exitosamente.',
+          'success' )
+      }
+    })
   }
 };
 //aqui guardo una vez editado
