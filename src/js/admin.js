@@ -247,6 +247,5 @@ function guardarProductoModificado() {
 }
 
 
-//-------Validacion Formulario--------
-// funciones para validar
+
 
