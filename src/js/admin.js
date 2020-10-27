@@ -245,3 +245,8 @@ function guardarProductoModificado() {
   let ventanaModal = document.getElementById("modalProducto");
   $(ventanaModal).modal("hide"); // traigo el form y pongo para ocultar el modal
 }
+
+
+//-------Validacion Formulario--------
+// funciones para validar
+
