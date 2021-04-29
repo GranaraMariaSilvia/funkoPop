@@ -1,10 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
+import "bootstrap/js/dist/alert";
 import "../css/style.css";
 import Funko from "./funko.js";
 import $ from "jquery";
-import Swal from 'sweetalert2';
-import '@fortawesome/fontawesome-free/js/all.min.js';
+import Swal from "sweetalert2";
+import "@fortawesome/fontawesome-free/js/all.min.js";
 //inicializo variables
 
 let listaFunkos = [];
@@ -12,8 +13,9 @@ leerProducto();
 let productoExistente = false; // false es cuando quiero agregar un nuevo producto y cuando sea verdadero  es cuando voy a editar
 
 //esta funcion la llamo en el boton agregar despues modifico y la llamo dentro de la funcion
-//agregarModificar(e) que la pongo en el boton agregar
+//agregarModificar(e) que la pongo en el boton agregar- el window es para hacerla global y acceder desde el html
 window.agregarFunko = function () {
+  //event.preventDefault()
   let codigo = document.getElementById("codigo").value;
   let nombre = document.getElementById("nombre").value;
   let numSerie = document.getElementById("numSerie").value;
@@ -22,6 +24,17 @@ window.agregarFunko = function () {
   let imagen = document.getElementById("imagen").value;
   let precio = document.getElementById("precio").value;
   //validar crear un if para validar los campos esto esta en la clse de eventos
+  if (
+    codigo === "" ||
+    nombre === "" ||
+    numSerie === "" ||
+    categoria === "" ||
+    descripcion === "" ||
+    imagen === "" ||
+    precio === ""
+  ) {
+    alert("Todos los campos son obligatorios");
+  }
 
   //creo el nuevo objeto
   let nuevoFunko = new Funko(
@@ -33,6 +46,8 @@ window.agregarFunko = function () {
     imagen,
     precio
   );
+
+  console.log(nuevoFunko);
   // los guardo con el push en el array que estaba vacio
   listaFunkos.push(nuevoFunko);
   //guardo en el localstorage
@@ -45,15 +60,15 @@ window.agregarFunko = function () {
   $(ventanaModal).modal("hide");
 
   Swal.fire(
-    'Producto Agregado!',
-    'Tu producto se agrego correctamente!',
-    'success'
-  )
+    "Producto agregado!",
+    "Su producto se agrego correctamente!",
+    "success"
+  );
 };
 
 // limpio el formulario, con reset y le pongo la funcion bandera que
- //me permite agregar un producto ** aqui le cambio y la llamo en el boton agregar del HTML
- //para solucionar un error, ahora la escribo con window
+//me permite agregar un producto ** aqui le cambio y la llamo en el boton agregar del HTML
+//para solucionar un error, ahora la escribo con window
 window.limpiarFormulario = function () {
   let formulario = document.getElementById("formProducto");
   formulario.reset();
@@ -90,18 +105,18 @@ function dibujarTabla(_listaFunkos) {
   for (let i in _listaFunkos) {
     //cada posicion toma el valor
     codHtml = `<tr>
-        <th scope="row">${_listaFunkos[i].codigo}</th>
-        <td>${_listaFunkos[i].nombre}</td>
+     <th scope="row">${_listaFunkos[i].codigo}</th>
+      <td>${_listaFunkos[i].nombre}</td>
         <td>${_listaFunkos[i].numSerie}</td>
-        <td>${_listaFunkos[i].categoria}</td>
-        <td>${_listaFunkos[i].descripcion}</td>
-        <td>${_listaFunkos[i].imagen}</td>
+       <td>${_listaFunkos[i].categoria}</td>
+       <td>${_listaFunkos[i].descripcion}</td>
+      <td>${_listaFunkos[i].imagen}</td>
         <td>$${_listaFunkos[i].precio}</td>
-        <td>
-          <button class="btn btn-outline-primary btn-sm " onclick= "modificarProducto(${_listaFunkos[i].codigo})"><i class="far fa-edit"></i></button>
+       <td>
+         <button class="btn btn-outline-primary btn-sm " onclick= "modificarProducto(${_listaFunkos[i].codigo})"><i class="far fa-edit"></i></button>
           <button class="btn btn-outline-danger btn-sm" onclick="eliminarProducto(this)"
-           id="${_listaFunkos[i].codigo}"><i class="far fa-trash-alt"></i></button>
-        </td>`;
+          id="${_listaFunkos[i].codigo}"><i class="far fa-trash-alt"></i></button>
+       </td>`;
     //a la tabla le pongo los valores y le pongo += para que acumule cada objeto
     tablaFunko.innerHTML += codHtml;
   }
@@ -119,58 +134,44 @@ function borrarTabla() {
   }
 }
 
-
 // para eliminar esta la llamo en el boton eliminar
 window.eliminarProducto = function (botonEliminar) {
+  console.log(botonEliminar);
+
   //pregunto si hay algo en el localstorage
   if (localStorage.length > 0) {
     let _listaFunkos = JSON.parse(localStorage.getItem("funkoKey"));
 
     Swal.fire({
-      title: 'Estas seguro de querer eliminar este producto?',
-      text: "Si elimina no hay vuelta atras!",
-      icon: 'warning',
+      title: "Estas seguro de eliminar el producto?",
+      text: "Si se elimina no hay vuelta atras!",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#DC143C',
-      cancelButtonColor: '#87CEEB',
-      confirmButtonText: 'Borrar!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si,eliminar!",
     }).then((result) => {
-
-
       if (result.isConfirmed) {
+        //filtro el array y se crea otro array con el resultado del filtro
+        let datosFiltrados = _listaFunkos.filter(function (producto) {
+          //retorno todos los productos que tienen un codigo Distinto al de boton eliminar id
+          return producto.codigo != botonEliminar.id;
+        });
 
-         //filtro el array y se crea otro array con el resultado del filtro
-    let datosFiltrados = _listaFunkos.filter(function (producto) {
-      return producto.codigo != botonEliminar.id;
-    });
-      //guardo el array filtrado en el localstorage
-      localStorage.setItem("funkoKey", JSON.stringify(datosFiltrados));
-      //llamo a la funcion para que pinte la tabla
-      leerProducto();
-      // le asigno al array los valores del array filtrado
-      listaFunkos = datosFiltrados;
+        //guardo el array filtrado en el localstorage
+        localStorage.setItem("funkoKey", JSON.stringify(datosFiltrados));
+        //llamo a la funcion para que pinte la tabla
+        leerProducto();
+        // le asigno al array listaFunkos los valores del array darosFiltrado
+        listaFunkos = datosFiltrados;
 
-        Swal.fire(
-          'Producto Borrado!',
-          'Su producto fue eliminado correctamente.',
-          'success'
-        )
+        Swal.fire("Funko borrado!", "Tu producto a sido borrado correctamente.", "success");
       }else{
-        Swal.fire(
-          'Cancelado!',
-          'Tu producto esta a salvo.',
-          'success'
-        )
-
+        Swal.fire("Cancelado!", "Su producto esta a salvo.", "info");
       }
-    })
-    
+    });
   }
 };
-
-
-
-
 
 // esta funcion la llamo en el boton editar
 window.modificarProducto = function (codigo) {
@@ -196,31 +197,34 @@ window.modificarProducto = function (codigo) {
 window.agregarModificar = function (event) {
   event.preventDefault();
   if (productoExistente == false) {
-    // quiero agregar un nuevo producto
+    //en caso de que sea false quiero agregar un nuevo producto
     agregarFunko();
   } else {
+    //caso contrario quiero editar
     Swal.fire({
-      title: 'Esta seguro de querer modificar el producto?',
+      title: "Esta seguro de querer modificar el producto?",
       text: "No sera posible revertir los cambios!",
-      icon: 'question',
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: '#DC143C',
-      cancelButtonColor: '#87CEEB',
-      confirmButtonText: 'Modificar!'
+      confirmButtonColor: "#D1880 ",
+      cancelButtonColor: "#8F8A8E",
+      confirmButtonText: "Modificar!",
     }).then((result) => {
       if (result.isConfirmed) {
-        //quiero editar un producto
+        //     quiero editar un producto
         guardarProductoModificado();
         Swal.fire(
-          'Producto Modificado!',
-          'tu producto fue modificado exitosamente.',
-          'success' )
+          "Producto Modificado!",
+          "tu producto fue modificado exitosamente.",
+          "success"
+        );
       }
-    })
+    });
   }
 };
 //aqui guardo una vez editado
 function guardarProductoModificado() {
+  console.log("desde gusrdar producto modificado");
   let codigo = document.getElementById("codigo").value;
   let nombre = document.getElementById("nombre").value;
   let numSerie = document.getElementById("numSerie").value;
@@ -245,7 +249,3 @@ function guardarProductoModificado() {
   let ventanaModal = document.getElementById("modalProducto");
   $(ventanaModal).modal("hide"); // traigo el form y pongo para ocultar el modal
 }
-
-
-
-

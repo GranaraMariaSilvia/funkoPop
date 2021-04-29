@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -50,7 +50,7 @@
         </div>
         <div class="col-2 text-right">
           <button class="btn btn-outline-dark mr-5" data-toggle="modal"
-           data-target="#modalProducto" onclick="limpiarFormulario()">Agregar</button>
+           data-target="#modalProducto" onclick="limpiarFormulario()" >Agregar</button>
         </div>
       </article>
 
@@ -84,65 +84,64 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <form onsubmit="agregarModificar(e)" id="formProducto">
+          <div class="modal-body bg-dark">
+            <form  onsubmit="agregarModificar(event)" id="formProducto" >
 
               <div class="form-group">
-                <label>Codigo</label>
-                <input type="text" class="form-control"
+                <label class="text-light">Codigo</label>
+                <input type="text"  class="form-control"
                  placeholder="Ej: 234"
                   id="codigo"
-                 
-                  >
+                  required >
                   <div class="invalid-feedback">
                  Ingrese un numero de codigo
                   </div>
               </div>
 
               <div class="form-group">
-                <label>Nombre</label>
+                <label class="text-light">Nombre</label>
                 <input type="text" class="form-control"
-                 placeholder="Ej:superman" id="nombre"
+                 placeholder="Ej:superman" id="nombre"  required
                >
-                 <div class="invalid-feedback">
+                 <div class="valid-feedback">
                    Ingrese un nombre.
                  </div>
               </div>
 
               <div class="form-group">
-                <label>Numero de serie</label>
+                <label class="text-light">Numero de serie</label>
                 <input type="text" class="form-control"
                  placeholder="Ej:er457" id="numSerie"
-                >
+                 required>
                  <div class="invalid-feedback">
                    Ingrese un numero de serie
                  </div>
               </div>
 
               <div class="form-group">
-                <label>Categoria</label>
+                <label class="text-light">Categoria</label>
                 <input type="text" class="form-control"
                  placeholder="Superheroe" id="categoria"
-                >
+                 required >
                  <div class="invalid-feedback">
                    Ingrese una categoria
                  </div>
               </div>
 
               <div class="form-group">
-                <label>Descripcion</label>
+                <label class="text-light">Descripcion</label>
                 <input type="text" class="form-control"
                  placeholder="personaje de Marvel" id="descripcion"
-                >
+                 required >
                  <div class="invalid-feedback">
                    Ingrese una descripcion
                  </div>
               </div>
 
               <div class="form-group">
-                <label>Imagen</label>
+                <label class="text-light">Imagen</label>
                 <input type="text" class="form-control"
-                 placeholder="ironman.png" id="imagen"
+                 placeholder="ironman.png" id="imagen"  required
                 >
                  <div class="invalid-feedback">
                    Ingrese una imagen valida
@@ -150,16 +149,16 @@
               </div>
 
               <div class="form-group">
-                <label>Precio</label>
+                <label class="text-light">Precio</label>
                 <input type="number" class="form-control"
                  placeholder="$6000" id="precio"
-                >
+                 required >
                  <div class="invalid-feedback">
                    Ingrese un precio
                  </div>
               </div>
 
-              <button type="submit" class="btn btn-outline-dark">Enviar</button>
+              <button type="submit" class="btn btn-light">Enviar</button>
             </form>
 
 

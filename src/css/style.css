@@ -1,3 +1,26 @@
 body{
-    background: #FFF5EE;
+    background: #fadfef;
 }
+
+h1 {
+ 
+  font-family: 'Trebuchet MS', sans-serif;
+   }
+
+   a{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+   }
+
+
+input:invalid {
+    border: 2px solid rgb(253, 7, 122);
+  }
+  
+  input:invalid:required {
+    background-image: linear-gradient(to right, rgb(252, 186, 198), rgb(216, 219, 216));
+  }
+  
+  input:valid {
+    border: 2px solid rgb(95, 95, 95);
+  }
