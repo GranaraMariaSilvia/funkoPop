@@ -23,18 +23,7 @@ window.agregarFunko = function () {
   let descripcion = document.getElementById("descripcion").value;
   let imagen = document.getElementById("imagen").value;
   let precio = document.getElementById("precio").value;
-  //validar crear un if para validar los campos esto esta en la clse de eventos
-  if (
-    codigo === "" ||
-    nombre === "" ||
-    numSerie === "" ||
-    categoria === "" ||
-    descripcion === "" ||
-    imagen === "" ||
-    precio === ""
-  ) {
-    alert("Todos los campos son obligatorios");
-  }
+ 
 
   //creo el nuevo objeto
   let nuevoFunko = new Funko(
@@ -65,6 +54,9 @@ window.agregarFunko = function () {
     "success"
   );
 };
+
+
+
 
 // limpio el formulario, con reset y le pongo la funcion bandera que
 //me permite agregar un producto ** aqui le cambio y la llamo en el boton agregar del HTML
@@ -113,9 +105,9 @@ function dibujarTabla(_listaFunkos) {
       <td>${_listaFunkos[i].imagen}</td>
         <td>$${_listaFunkos[i].precio}</td>
        <td>
-         <button class="btn btn-outline-primary btn-sm " onclick= "modificarProducto(${_listaFunkos[i].codigo})"><i class="far fa-edit"></i></button>
-          <button class="btn btn-outline-danger btn-sm" onclick="eliminarProducto(this)"
-          id="${_listaFunkos[i].codigo}"><i class="far fa-trash-alt"></i></button>
+         <button class="btn btn-outline-light btn-sm " onclick= "modificarProducto(${_listaFunkos[i].codigo})"><i class="far fa-edit" style="color:black"></i></button>
+          <button class="btn btn-outline-light btn-sm" onclick="eliminarProducto(this)"
+          id="${_listaFunkos[i].codigo}"><i class="far fa-trash-alt" style="color:gray"></i></button>
        </td>`;
     //a la tabla le pongo los valores y le pongo += para que acumule cada objeto
     tablaFunko.innerHTML += codHtml;
@@ -147,8 +139,8 @@ window.eliminarProducto = function (botonEliminar) {
       text: "Si se elimina no hay vuelta atras!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#FA66A9",
+      cancelButtonColor: "#504F4F",
       confirmButtonText: "Si,eliminar!",
     }).then((result) => {
       if (result.isConfirmed) {
@@ -206,8 +198,8 @@ window.agregarModificar = function (event) {
       text: "No sera posible revertir los cambios!",
       icon: "question",
       showCancelButton: true,
-      confirmButtonColor: "#D1880 ",
-      cancelButtonColor: "#8F8A8E",
+      confirmButtonColor: "#FA66A9",
+      cancelButtonColor: "#504F4F",
       confirmButtonText: "Modificar!",
     }).then((result) => {
       if (result.isConfirmed) {

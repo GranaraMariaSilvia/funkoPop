@@ -18,7 +18,7 @@ function leerStorage() {
                 <h5 class="card-title">${listaProductos[i].nombre}</h5>
                 <p class="card-text">${listaProductos[i].descripcion}.</p>
                  <p> Precio $${listaProductos[i].precio}</p>
-                <a href="#" class="btn btn-secondary disabled">Comprar</a>
+               
               </div>
             </div>
   

@@ -1,5 +1,5 @@
 body{
-    background: #fadfef;
+    background: #f5c9e8;
 }
 
 h1 {
@@ -14,7 +14,7 @@ h1 {
 
 
 input:invalid {
-    border: 2px solid rgb(253, 7, 122);
+    border: 2px solid rgb(247, 94, 165);
   }
   
   input:invalid:required {
@@ -22,5 +22,11 @@ input:invalid {
   }
   
   input:valid {
-    border: 2px solid rgb(95, 95, 95);
+    border: 2px solid rgb(245, 239, 239);
+  }
+
+  #imagenAdmin{
+    margin-top: 5px;
+  margin-bottom: -35px;
+  margin-right: 250px;
   }
